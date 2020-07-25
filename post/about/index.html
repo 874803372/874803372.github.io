@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://874803372.github.io/media/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://874803372.github.io/styles/main.css">
     
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/vs2015.min.css">
               
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
     <script src="https://874803372.github.io/media/js/clipboard.min.js"></script>
@@ -22,6 +22,31 @@
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
     <!-- 数学公式 -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css"
+        integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js"
+        integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js"
+        integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous">
+    </script>
+    <script>
+        renderMathInElement(document.body, {
+            delimiters: [{
+                    left: "$$",
+                    right: "$$",
+                    display: true
+                },
+                {
+                    left: "$",
+                    right: "$",
+                    display: false
+                }
+            ]
+        });
+    </script>
+
     
     <title>QLU_zsh | ACMer</title>
     
@@ -54,7 +79,7 @@
     
     <div id=side>
         <div class="avatar-border">
-            <img src="https://874803372.github.io/images/avatar.png?v=1595673379742" class="avatar">
+            <img src="https://874803372.github.io/images/avatar.png?v=1595675933779" class="avatar">
         </div>
         <div class="sitename">QLU_zsh | ACMer</div>
         <span class="describtion" data-text='["有时候，正是那些意想不到之人，成就了无人能成之事。"]'>&nbsp;</span>
@@ -385,9 +410,9 @@
     </div>
     <div id="bg">
     </div>
-    <div id="bgchoice" style="display: none"></div>
+    <div id="bgchoice" style="display: none">link</div>
     
-    <div id="bgurl" style="display:none"></div>
+    <div id="bgurl" style="display:none">https://s1.ax1x.com/2020/07/25/aS8jNd.jpg</div>
        
     </div>
     <!-- 响应式布局，针对手机端内容显示 -->

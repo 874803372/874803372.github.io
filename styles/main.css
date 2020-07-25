@@ -1534,3 +1534,20 @@ body {
     display: none;
   }
 }
+
+      .sitename {
+        color: #495057;
+      }
+    
+        .describtion {
+          color: #343a40;
+        }
+      
+        .menubutton {
+          color: #343a40;
+        }
+      
+        .mobiledescribtion{
+          color: white;
+        }
+      
