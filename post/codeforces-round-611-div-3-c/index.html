@@ -2,13 +2,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="
-欢迎来到我的小站呀，很高兴遇见你！🤝
-
-🏠 关于本站
-👨‍💻 博主是谁
-⛹ 兴趣爱好
-📬 联系我呀
-..." />
+题意
+有n个人，n个人之间要互相送礼物，一个人最多只能送出一个礼物和收一个礼物。先输入多少人，然后第二行输入要送给第几个人，如果还没决定送给第几个人就输入0同时一个人不能送礼物给自己。
+样例解释
+不是多组输入
+Input
+5
+5 0 0 ..." />
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://874803372.github.io/media/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://874803372.github.io/styles/main.css">
@@ -310,30 +310,120 @@
                 
             </div>
             <div class="postinfo-detail">
-                <div class="postdate"><i class="fa fa-calendar"></i>2019-01-25</div>
-            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 1 min read</div>
+                <div class="postdate"><i class="fa fa-calendar"></i>2020-07-31</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 3 min read</div>
             <div class="posttag">
                 
             </div>
         </div>
         
         <div id="texttitle" style="text-align: center">
-            <h2>关于</h2>
+            <h2>Codeforces Round #611 (Div. 3) C</h2>
             <!-- id 将作为查询条件 -->
-            <div id="pl" style="display:none">https://874803372.github.io/post/about/</div>
+            <div id="pl" style="display:none">https://874803372.github.io/post/codeforces-round-611-div-3-c/</div>
             <div id="rootaddr" style="display:none">https://874803372.github.io</div>
-            <span id="hotnum" class="leancloud_visitors" data-flag-title="关于">
+            <span id="hotnum" class="leancloud_visitors" data-flag-title="Codeforces Round #611 (Div. 3) C">
                 <h4 class="readercount">热度🔥: <i class="leancloud-visitors-count">loading...</i></h4>
             </span>
         </div>
         <div class="text ">
-            <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+            <ul>
+<li>题意<br>
+<strong>有n个人，n个人之间要互相送礼物，一个人最多只能送出一个礼物和收一个礼物。先输入多少人，然后第二行输入要送给第几个人，如果还没决定送给第几个人就输入0同时一个人不能送礼物给自己。</strong></li>
+<li>样例解释<br>
+不是多组输入<br>
+<strong>Input</strong><br>
+5<br>
+5 0 0 2 4<br>
+7<br>
+7 4 0 3 0 5 1<br>
+5<br>
+2 1 0 0 0<br>
+<strong>output</strong><br>
+5 3 1 2 4<br>
+7 4 2 3 6 5 1<br>
+2 1 4 5 3<br>
+<strong>对于第一个样例：第一个人送给了第五个，第四个人送给了第二个，第五个人送给了第四个，还剩第一个和第三个人没有收到礼物，第三个人送礼物不能送给自己所以只有5 3 1 2 4一个方案</strong></li>
+<li>思路<br>
+<strong>比较典型的构造题，其实样例不止上面三个，但这三个基本就可以代表这个题所有的类型<s>不得不让人感叹codeforces样例真的是对于调试程序很友好了不像某牛</s>。</strong><br>
+<strong>我们会发现只有没送礼物也没收到礼物的人才有可能会送礼物给自己。第一个样例，第三个人没有收到礼物同时也没有决定送谁礼物，第二个人还没决定送谁礼物但已经收到礼物，所以第二个人必须送给第三个人礼物。</strong><br>
+<strong>第一种情况：没送礼物也没收礼物的，和已经收到礼物但没送礼物的都有</strong><br>
+<strong>第二种情况：所有人都已经收到礼物或者送出礼物。</strong><br>
+<strong>第三种情况：所有没送出礼物的人也没收到礼物</strong><br>
+<strong>针对这三种情况进行构造即可</strong></li>
+</ul>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+
+using namespace std;
+
+const int N = 2e5 + 10;
+
+struct Node {
+    int id;
+    bool vis;
+}a[N];
+
+vector&lt;int&gt; last;
+vector&lt;int&gt; v;
+
+int main() {
+    int n;
+    cin &gt;&gt; n;
+    for(int i = 1;i &lt;= n;i++) {
+        int x;
+        scanf(&quot;%d&quot;, &amp;x);
+        a[i].id = x;
+        a[x].vis = true;
+    }
+    for(int i = 1;i &lt;= n;i++) {
+        if(a[i].vis == 0) {
+            if(a[i].id == 0) {
+                v.push_back(i);
+            }
+            else {
+                last.push_back(i);
+            }
+        }
+    }
+    int len1 = last.size();
+    if(len1 == 0) {
+        int len = v.size();
+        int temp = 1;
+        for(int i = 1;i &lt;= n;i++) {
+            if(a[i].id == 0) {
+                if(temp == len) {
+                    a[i].id = v[0];
+                }
+                else {
+                    a[i].id = v[temp];
+                    temp++;
+                }
+            }
+            printf(&quot;%d &quot;,a[i].id);
+        }
+    }
+    else {
+        int len = v.size();
+        for(int i = 0;i &lt; len;i++) {
+            a[v[i]].id = last[len1 - 1];
+            last.pop_back();
+            last.push_back(v[i]);
+        }
+        int len2 = last.size();
+        for(int i = 1;i &lt;= n;i++) {
+            if(a[i].id == 0) {
+                a[i].id = last[len2 - 1];
+                last.pop_back();
+                len2--;
+            }
+            printf(&quot;%d &quot;, a[i].id);
+        }
+    }
+    return 0;
+}
+</code></pre>
 
         </div>
         
@@ -389,17 +479,7 @@
     </div>
      
                 <div class="toc-container">
-                    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
-</ul>
-</li>
-</ul>
-
+                    
     </div>
     </div>
     </div>
@@ -530,30 +610,120 @@
                 
             </div>
             <div class="postinfo-detail">
-                <div class="postdate"><i class="fa fa-calendar"></i>2019-01-25</div>
-            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 1 min read</div>
+                <div class="postdate"><i class="fa fa-calendar"></i>2020-07-31</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 3 min read</div>
             <div class="posttag">
                 
             </div>
         </div>
         
         <div id="texttitle" style="text-align: center">
-            <h2>关于</h2>
+            <h2>Codeforces Round #611 (Div. 3) C</h2>
             <!-- id 将作为查询条件 -->
-            <div id="pl" style="display:none">https://874803372.github.io/post/about/</div>
+            <div id="pl" style="display:none">https://874803372.github.io/post/codeforces-round-611-div-3-c/</div>
             <div id="rootaddr" style="display:none">https://874803372.github.io</div>
-            <span id="hotnum" class="leancloud_visitors" data-flag-title="关于">
+            <span id="hotnum" class="leancloud_visitors" data-flag-title="Codeforces Round #611 (Div. 3) C">
                 <h4 class="readercount">热度🔥: <i class="leancloud-visitors-count">loading...</i></h4>
             </span>
         </div>
         <div class="text ">
-            <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+            <ul>
+<li>题意<br>
+<strong>有n个人，n个人之间要互相送礼物，一个人最多只能送出一个礼物和收一个礼物。先输入多少人，然后第二行输入要送给第几个人，如果还没决定送给第几个人就输入0同时一个人不能送礼物给自己。</strong></li>
+<li>样例解释<br>
+不是多组输入<br>
+<strong>Input</strong><br>
+5<br>
+5 0 0 2 4<br>
+7<br>
+7 4 0 3 0 5 1<br>
+5<br>
+2 1 0 0 0<br>
+<strong>output</strong><br>
+5 3 1 2 4<br>
+7 4 2 3 6 5 1<br>
+2 1 4 5 3<br>
+<strong>对于第一个样例：第一个人送给了第五个，第四个人送给了第二个，第五个人送给了第四个，还剩第一个和第三个人没有收到礼物，第三个人送礼物不能送给自己所以只有5 3 1 2 4一个方案</strong></li>
+<li>思路<br>
+<strong>比较典型的构造题，其实样例不止上面三个，但这三个基本就可以代表这个题所有的类型<s>不得不让人感叹codeforces样例真的是对于调试程序很友好了不像某牛</s>。</strong><br>
+<strong>我们会发现只有没送礼物也没收到礼物的人才有可能会送礼物给自己。第一个样例，第三个人没有收到礼物同时也没有决定送谁礼物，第二个人还没决定送谁礼物但已经收到礼物，所以第二个人必须送给第三个人礼物。</strong><br>
+<strong>第一种情况：没送礼物也没收礼物的，和已经收到礼物但没送礼物的都有</strong><br>
+<strong>第二种情况：所有人都已经收到礼物或者送出礼物。</strong><br>
+<strong>第三种情况：所有没送出礼物的人也没收到礼物</strong><br>
+<strong>针对这三种情况进行构造即可</strong></li>
+</ul>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+
+using namespace std;
+
+const int N = 2e5 + 10;
+
+struct Node {
+    int id;
+    bool vis;
+}a[N];
+
+vector&lt;int&gt; last;
+vector&lt;int&gt; v;
+
+int main() {
+    int n;
+    cin &gt;&gt; n;
+    for(int i = 1;i &lt;= n;i++) {
+        int x;
+        scanf(&quot;%d&quot;, &amp;x);
+        a[i].id = x;
+        a[x].vis = true;
+    }
+    for(int i = 1;i &lt;= n;i++) {
+        if(a[i].vis == 0) {
+            if(a[i].id == 0) {
+                v.push_back(i);
+            }
+            else {
+                last.push_back(i);
+            }
+        }
+    }
+    int len1 = last.size();
+    if(len1 == 0) {
+        int len = v.size();
+        int temp = 1;
+        for(int i = 1;i &lt;= n;i++) {
+            if(a[i].id == 0) {
+                if(temp == len) {
+                    a[i].id = v[0];
+                }
+                else {
+                    a[i].id = v[temp];
+                    temp++;
+                }
+            }
+            printf(&quot;%d &quot;,a[i].id);
+        }
+    }
+    else {
+        int len = v.size();
+        for(int i = 0;i &lt; len;i++) {
+            a[v[i]].id = last[len1 - 1];
+            last.pop_back();
+            last.push_back(v[i]);
+        }
+        int len2 = last.size();
+        for(int i = 1;i &lt;= n;i++) {
+            if(a[i].id == 0) {
+                a[i].id = last[len2 - 1];
+                last.pop_back();
+                len2--;
+            }
+            printf(&quot;%d &quot;, a[i].id);
+        }
+    }
+    return 0;
+}
+</code></pre>
 
         </div>
         
