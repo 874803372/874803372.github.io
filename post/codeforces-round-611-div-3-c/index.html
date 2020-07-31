@@ -79,7 +79,7 @@ Input
     
     <div id=side>
         <div class="avatar-border">
-            <img src="https://874803372.github.io/images/avatar.png?v=1596172379683" class="avatar">
+            <img src="https://874803372.github.io/images/avatar.png?v=1596173531919" class="avatar">
         </div>
         <div class="sitename">QLU_zsh | ACMer</div>
         <span class="describtion" data-text='["有时候，正是那些意想不到之人，成就了无人能成之事。"]'>&nbsp;</span>
@@ -309,7 +309,7 @@ Input
             </div>
             <div class="postinfo-detail">
                 <div class="postdate"><i class="fa fa-calendar"></i>2020-07-31</div>
-                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 3 min read</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 4 min read</div>
                 <div class="posttag">
                     
                 </div>
@@ -346,9 +346,9 @@ Input
 <strong>比较典型的构造题，其实样例不止上面三个，但这三个基本就可以代表这个题所有的类型<s>不得不让人感叹codeforces样例真的是对于调试程序很友好了不像某牛</s>。</strong><br>
 <strong>我们会发现只有没送礼物也没收到礼物的人才有可能会送礼物给自己。第一个样例，第三个人没有收到礼物同时也没有决定送谁礼物，第二个人还没决定送谁礼物但已经收到礼物，所以第二个人必须送给第三个人礼物。</strong><br>
 <strong>第一种情况：没送礼物也没收礼物的，和已经收到礼物但没送礼物的都有</strong><br>
-<strong>第二种情况：所有人都已经收到礼物或者送出礼物。</strong><br>
+<strong>第二种情况：所有人都已经收到礼物或者送出礼物，这种情况无所谓顺序因为没有人会自己送自己礼物了。</strong><br>
 <strong>第三种情况：所有没送出礼物的人也没收到礼物</strong><br>
-<strong>针对这三种情况进行构造即可</strong></li>
+<strong>针对这三种情况进行构造即可,无论哪种情况我们先把没送礼物但收到礼物和没送礼物也没收礼物的人分别用vector统计一下，如果有已经收到礼物但没送礼物的，优先对没送礼物也没收到礼物的进行构造。详见代码注释。</strong></li>
 </ul>
 <pre><code>#include&lt;iostream&gt;
 #include&lt;cstdio&gt;
@@ -378,15 +378,15 @@ int main() {
     for(int i = 1;i &lt;= n;i++) {
         if(a[i].vis == 0) {
             if(a[i].id == 0) {
-                v.push_back(i);
+                v.push_back(i);//没送礼物也没收到礼物的人的编号
             }
             else {
-                last.push_back(i);
+                last.push_back(i);//已经收到礼物但没送礼物的人的编号
             }
         }
     }
     int len1 = last.size();
-    if(len1 == 0) {
+    if(len1 == 0) {//第三种情况只需要变下顺序即可和样例三一样，2 1 4 5 3
         int len = v.size();
         int temp = 1;
         for(int i = 1;i &lt;= n;i++) {
@@ -402,12 +402,12 @@ int main() {
             printf(&quot;%d &quot;,a[i].id);
         }
     }
-    else {
+    else {//第一种，第二种情况
         int len = v.size();
         for(int i = 0;i &lt; len;i++) {
-            a[v[i]].id = last[len1 - 1];
+            a[v[i]].id = last[len1 - 1];//已经收过礼物的，优先给没送也没收礼物的人送
             last.pop_back();
-            last.push_back(v[i]);
+            last.push_back(v[i]);//没送也没收礼物的就变成了已经收到礼物的人了
         }
         int len2 = last.size();
         for(int i = 1;i &lt;= n;i++) {
@@ -607,7 +607,7 @@ int main() {
             </div>
             <div class="postinfo-detail">
                 <div class="postdate"><i class="fa fa-calendar"></i>2020-07-31</div>
-                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 3 min read</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 4 min read</div>
                 <div class="posttag">
                     
                 </div>
@@ -644,9 +644,9 @@ int main() {
 <strong>比较典型的构造题，其实样例不止上面三个，但这三个基本就可以代表这个题所有的类型<s>不得不让人感叹codeforces样例真的是对于调试程序很友好了不像某牛</s>。</strong><br>
 <strong>我们会发现只有没送礼物也没收到礼物的人才有可能会送礼物给自己。第一个样例，第三个人没有收到礼物同时也没有决定送谁礼物，第二个人还没决定送谁礼物但已经收到礼物，所以第二个人必须送给第三个人礼物。</strong><br>
 <strong>第一种情况：没送礼物也没收礼物的，和已经收到礼物但没送礼物的都有</strong><br>
-<strong>第二种情况：所有人都已经收到礼物或者送出礼物。</strong><br>
+<strong>第二种情况：所有人都已经收到礼物或者送出礼物，这种情况无所谓顺序因为没有人会自己送自己礼物了。</strong><br>
 <strong>第三种情况：所有没送出礼物的人也没收到礼物</strong><br>
-<strong>针对这三种情况进行构造即可</strong></li>
+<strong>针对这三种情况进行构造即可,无论哪种情况我们先把没送礼物但收到礼物和没送礼物也没收礼物的人分别用vector统计一下，如果有已经收到礼物但没送礼物的，优先对没送礼物也没收到礼物的进行构造。详见代码注释。</strong></li>
 </ul>
 <pre><code>#include&lt;iostream&gt;
 #include&lt;cstdio&gt;
@@ -676,15 +676,15 @@ int main() {
     for(int i = 1;i &lt;= n;i++) {
         if(a[i].vis == 0) {
             if(a[i].id == 0) {
-                v.push_back(i);
+                v.push_back(i);//没送礼物也没收到礼物的人的编号
             }
             else {
-                last.push_back(i);
+                last.push_back(i);//已经收到礼物但没送礼物的人的编号
             }
         }
     }
     int len1 = last.size();
-    if(len1 == 0) {
+    if(len1 == 0) {//第三种情况只需要变下顺序即可和样例三一样，2 1 4 5 3
         int len = v.size();
         int temp = 1;
         for(int i = 1;i &lt;= n;i++) {
@@ -700,12 +700,12 @@ int main() {
             printf(&quot;%d &quot;,a[i].id);
         }
     }
-    else {
+    else {//第一种，第二种情况
         int len = v.size();
         for(int i = 0;i &lt; len;i++) {
-            a[v[i]].id = last[len1 - 1];
+            a[v[i]].id = last[len1 - 1];//已经收过礼物的，优先给没送也没收礼物的人送
             last.pop_back();
-            last.push_back(v[i]);
+            last.push_back(v[i]);//没送也没收礼物的就变成了已经收到礼物的人了
         }
         int len2 = last.size();
         for(int i = 1;i &lt;= n;i++) {
